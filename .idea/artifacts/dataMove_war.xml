@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="dataMove:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="dataMove-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="dataMove:war exploded" />
+    </root>
+  </artifact>
+</component>

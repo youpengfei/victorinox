@@ -18,9 +18,7 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String uri=  request.getRequestURI();
-        String actionName=uri.substring(uri.indexOf("/")+1,uri.length()-1);
-        System.out.println(actionName);
-        request.getRequestDispatcher("Hello.jsp").forward(request, response);
+        ControllerManager.process(request,response);
+
     }
 }

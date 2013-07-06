@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/moveDataDemo/moveDataDemo.iml" filepath="$PROJECT_DIR$/moveDataDemo/moveDataDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/victorinox.iml" filepath="$PROJECT_DIR$/victorinox.iml" />
+      <module fileurl="file://$PROJECT_DIR$/victorinox-web/victorinox-web.iml" filepath="$PROJECT_DIR$/victorinox-web/victorinox-web.iml" />
     </modules>
   </component>
 </project>

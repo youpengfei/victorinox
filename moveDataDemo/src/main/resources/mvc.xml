@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mvc>
+    <view id="" class="">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </view>
+    <model refView="">
+        <property name="basePackage" value="org.youyou.vo"/>
+        <property name="isValidate" value="true"/>
+    </model>
+    <controller class=""/>
+</mvc>

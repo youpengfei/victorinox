@@ -22,7 +22,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="victorinox" />
+        <module name="moveDataDemo" />
+        <module name="victorinox-web" />
       </profile>
     </annotationProcessing>
   </component>

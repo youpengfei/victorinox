@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="victorinox:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="victorinox-1.0-SNAPSHOT.war">
-      <element id="artifact" artifact-name="victorinox:war exploded" />
-    </root>
-  </artifact>
-</component>

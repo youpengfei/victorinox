@@ -24,6 +24,7 @@ public class ClazzUtils {
     public static final String JAR_PROTOCOL = "jar";
     public static final String DEFAULT_ENCODING = "UTF-8";
     public static final String CLASS_SUFFIX = ".class";
+
     /**
      * 从包package中获取所有的Class
      *
@@ -99,8 +100,8 @@ public class ClazzUtils {
     /**
      * 以文件的形式来获取包下的所有Class
      *
-     * @param packageName
-     * @param packagePath
+     * @param packageName 包名
+     * @param packagePath 包路径
      * @param recursive
      * @param classes
      */
@@ -130,6 +131,14 @@ public class ClazzUtils {
                 classes.add(Thread.currentThread().getContextClassLoader().loadClass(packageName + '.' + className));
 
             }
+        }
+    }
+
+    public static <T> T getNewInstance(Class<T> clazz) {
+        try {
+            return clazz.newInstance();
+        } catch (Exception ignore) {
+            return null;
         }
     }
 }

@@ -3,6 +3,8 @@ package org.youyou;
 import org.youyou.annotation.RequestMapping;
 import org.youyou.common.bean.ProcessBody;
 import org.youyou.utils.ClazzUtils;
+import org.youyou.utils.MethodHandler;
+import org.youyou.utils.ProcessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,66 +25,17 @@ import java.util.Set;
  */
 public class ControllerManager {
     public static String JSP_PATH = "/WEB-INF/jsp/";
-    public static String CONTROLLER_PACKAGE = "org.youyou.controller";
-
-    public static Map<String, ProcessBody> requestMapping = new LinkedHashMap<String, ProcessBody>();
-    final static Set<Class<?>> classSet = ClazzUtils.getClasses(CONTROLLER_PACKAGE);
-
-    static {
-        for (Class<?> aClass : classSet) {
-            final Method[] methods = aClass.getMethods();
-            final Annotation[] annotations = aClass.getAnnotations();
-            String parentActionName = "";
-            for (Annotation annotation : annotations) {
-                if (annotation instanceof RequestMapping) {
-                    parentActionName = ((RequestMapping) annotation).value()[0];
-                }
-            }
-            Object o = null;
-            try {
-                o = aClass.newInstance();
-            } catch (InstantiationException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-            for (Method method : methods) {
-                Boolean isAction = false;
-                String actionName = "";
-                for (Annotation annotation : method.getAnnotations()) {
-                    if (annotation instanceof RequestMapping) {
-                        isAction = true;
-                        actionName = ((RequestMapping) annotation).value()[0];
-                    }
-                }
-                if (isAction) {
-                    ProcessBody processBody = new ProcessBody();
-                    processBody.setInstance(o);
-                    processBody.setMethod(method);
-                    requestMapping.put(parentActionName + "/" + actionName, processBody);
-                }
-
-            }
-            System.out.println("==================");
-        }
-    }
+    public static final String REDIRECT_TAG = "redirect:";
 
     public static void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
-        final ProcessBody processBody = requestMapping.get(uri.substring(uri.indexOf("/") + 1));
-        try {
-            final String invoke = (String) processBody.getMethod().invoke(processBody.getInstance());
+        final ProcessBody processBody = ProcessHandler.getProcessBody(uri);
+        final String invoke = MethodHandler.handle(processBody);
+        if (invoke.startsWith(REDIRECT_TAG)) {
+            response.sendRedirect(invoke.substring(REDIRECT_TAG.length()));
+        } else {
             request.getRequestDispatcher(JSP_PATH + invoke + ".jsp").forward(request, response);
-
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-
     }
 
 

@@ -30,7 +30,7 @@ public class ControllerManager {
     public static void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String uri = request.getRequestURI();
         final ProcessBody processBody = ProcessHandler.getProcessBody(uri);
-        final String invoke = MethodHandler.handle(processBody);
+        final String invoke = MethodHandler.handle(processBody,request);
         if (invoke.startsWith(REDIRECT_TAG)) {
             response.sendRedirect(invoke.substring(REDIRECT_TAG.length()));
         } else {

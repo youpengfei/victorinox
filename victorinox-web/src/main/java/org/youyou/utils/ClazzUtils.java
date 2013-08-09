@@ -134,11 +134,4 @@ public class ClazzUtils {
         }
     }
 
-    public static <T> T getNewInstance(Class<T> clazz) {
-        try {
-            return clazz.newInstance();
-        } catch (Exception ignore) {
-            return null;
-        }
-    }
 }

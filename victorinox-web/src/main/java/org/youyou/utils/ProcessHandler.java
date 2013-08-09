@@ -19,12 +19,18 @@ public class ProcessHandler {
     public static String CONTROLLER_PACKAGE = "org.youyou.controller";
     public static Map<String, ProcessBody> processMapping = new LinkedHashMap<String, ProcessBody>();
     final static Set<Class<?>> classSet = ClazzUtils.getClasses(CONTROLLER_PACKAGE);
+
     static {
         for (Class<?> clazz : classSet) {
             final Method[] methods = clazz.getMethods();
             final Annotation[] annotations = clazz.getAnnotations();
             String parentActionName = AnnotationUtils.getActionName(annotations);
-            Object o = ClazzUtils.getNewInstance(clazz);
+            Object o = null;
+            try {
+                o = clazz.newInstance();
+            } catch (Exception e) {
+
+            }
             for (Method method : methods) {
                 String actionName = AnnotationUtils.getActionName(method.getAnnotations());
                 if (StringUtils.hasText(actionName)) {
